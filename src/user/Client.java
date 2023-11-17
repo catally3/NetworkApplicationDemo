@@ -22,12 +22,10 @@ public class Client {
 
             //wait for the server's acknowledgment for a successful connection
             String serverResponse = inputFromServer.readLine();
-            System.out.println("Server: " + serverResponse); //should the client be able to see the server's acknowledgments? 
-
-            //unsure if manually input a hardcoded function, use keyboard scanner, or just auto create random functions
-            outputToServer.println("(Calc) 2 + 2"); //sends hard-coded calc request to server
-
-            // (Silly) Perhaps we could use random functions to generate the functions for us (Silly)
+            
+            System.out.println("Server: " + serverResponse); 
+            
+            //Random functions to generate the functions
             Random random = new Random();
 
             for (int i = 0; i < 5; i++) {
@@ -57,11 +55,14 @@ public class Client {
                     e.printStackTrace();
                 }
             }
+           //end of random equation generator            
             
-            //end of (Sillyness)
-               
+            //receive and print results from the server until the server signals the end
+            String serverResult;
+            while (!(serverResult = inputFromServer.readLine()).equals("END")) {
+                System.out.println("Result from server: " + serverResult);
+            }      
             
-
             // close the connection
             outputToServer.println("(End) Andy 12.123.123.123,50"); //(End) clientName clientIP,clientPort as stated in document
 
