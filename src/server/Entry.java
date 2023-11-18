@@ -1,10 +1,12 @@
 package server;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 public class Entry {
 
 	int clientNum;
 	String clientName;
-	String clientIP;
+	InetAddress clientIP;
 	int clientPortNum;
 	int requestNum;
 	int seconds;
@@ -17,7 +19,7 @@ public class Entry {
 		return clientName;
 	}
 	
-	public String getClientIP() {
+	public InetAddress getClientIP() {
 		return clientIP;
 	}
 	
@@ -34,7 +36,7 @@ public class Entry {
 	}
 	
 	// do not pass requestNum, int seconds should be current time in seconds (1am would be 360)
-	public Entry(int clientNum, String clientName, String clientIP, int clientPortNum, int seconds) {
+	public Entry(int clientNum, String clientName, InetAddress clientIP, int clientPortNum, int seconds) {
 		this.clientNum = clientNum;
 		this.clientName = clientName;
 		this.clientIP = clientIP;
@@ -44,8 +46,8 @@ public class Entry {
 	}
 	
 	// do not use default constructor in final program, strictly for testing/debugging
-	public Entry() {
-		this(0, "defaultName", "defaultIP", 0, 0);
+	public Entry() throws UnknownHostException {
+		this(0, "defaultName", InetAddress.getLocalHost(), 0, 0);
 	}
 	
 	// Increments requestNum by 1 and returns new requestNum
@@ -61,7 +63,8 @@ public class Entry {
 	
 	public void printEntry() {
 		// should print formatted values for this Entry to console
-		// in or similar to format: clientNum", "clientName", "clientIP","clientPortNum", "requestNum", "seconds"\n"
+		System.out.println(clientNum + ", " + clientName + ", " + clientIP + "," 
+							+ clientPortNum + ", " + requestNum + ", " + seconds);
 	}
 
 }

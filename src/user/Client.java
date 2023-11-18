@@ -5,20 +5,25 @@ import java.net.*;
 import java.util.Random;
 
 public class Client {
-   // public static void main(String[] args) {
+   
+	String clientName;
+	InetAddress clientIP;
+	InetAddress serverAddress;
+	int serverPort = 65500;
+	
 	public void startClient(){
         try {
             //connect to the server using TCP
-            String serverAddress = "123"; // Replace when ready
-            int port = 0; // Replace with the server's port number
-            Socket socket = new Socket(serverAddress, port); // TCP connection
+            serverAddress = InetAddress.getByName("server"); // Replace when ready
+            Socket socket = new Socket(serverAddress, serverPort); // TCP connection
             
             //set up input and output streams for the socket
             BufferedReader inputFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter outputToServer = new PrintWriter(socket.getOutputStream(), true);
 
             //provide a name for the client during the initial attachment
-            outputToServer.println("(Join) Becky 12.123.123.123,50 12.123.123.321,55 "); // (Join) clientName clientIP,clientPort serverIP,serverPort as stated in document
+            clientIP = InetAddress.getLocalHost();
+            outputToServer.println("(Join) Becky"); // (Join) clientName clientIP,clientPort serverIP,serverPort as stated in document
 
             //wait for the server's acknowledgment for a successful connection
             String serverResponse = inputFromServer.readLine();
