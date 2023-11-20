@@ -11,14 +11,23 @@ public class Server {
 	ServerSocket serverSocket;
 	ArrayList<Entry> log;
 	
-	
-	public Server() throws IOException {
+	public Server() {
+		try {
 		log = new ArrayList<Entry>();
 		serverIP = InetAddress.getLocalHost();
 		serverSocket = new ServerSocket(welcomePort);
 		while (true) {
 			Socket client = serverSocket.accept();
-			new ServerThread(client).start();
+			new ServerThread(client).start(log);
+			System.out.println("Printing Current Log: ");
+			for (Entry ent : log) {
+				ent.printEntry();
+			}
+		}
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
 	}
 

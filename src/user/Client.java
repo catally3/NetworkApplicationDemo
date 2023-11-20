@@ -52,7 +52,12 @@ public class Client {
 
                 //generate a random interval between 1 and 5 seconds
                 int interval = random.nextInt(5) + 1;
-
+                
+               //receive and print result from the server
+                String serverResult;
+                serverResult = inputFromServer.readLine();
+                System.out.println("Result from server: " + serverResult);
+                
                 //pause for a random interval (required by project)
                 try {
                     Thread.sleep(interval * 1000);
@@ -60,16 +65,10 @@ public class Client {
                     e.printStackTrace();
                 }
             }
-           //end of random equation generator            
-            
-            //receive and print results from the server until the server signals the end
-            String serverResult;
-            while (!(serverResult = inputFromServer.readLine()).equals("END")) {
-                System.out.println("Result from server: " + serverResult);
-            }      
+           //end of random equation generator                 
             
             // close the connection
-            outputToServer.println("(End) Andy 12.123.123.123,50"); //(End) clientName clientIP,clientPort as stated in document
+            outputToServer.println("(End) Andy"); //(End) clientName as stated in document
 
             // close the streams and the socket
             inputFromServer.close();
