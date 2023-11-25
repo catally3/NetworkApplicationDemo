@@ -6,15 +6,15 @@ import java.util.Random;
 
 public class Client {
    
-	String clientName;
+	//String clientName;
 	InetAddress clientIP;
 	InetAddress serverAddress;
 	int serverPort = 65500;
 	
-	public void startClient(){
+	public void startClient(String clientName){
         try {
             //connect to the server using TCP
-            serverAddress = InetAddress.getByName("server"); // Replace when ready
+            serverAddress = InetAddress.getByName("server"); // Address of the server
             Socket socket = new Socket(serverAddress, serverPort); // TCP connection
             
             //set up input and output streams for the socket
@@ -23,7 +23,7 @@ public class Client {
 
             //provide a name for the client during the initial attachment
             clientIP = InetAddress.getLocalHost();
-            outputToServer.println("(Join) Becky"); // (Join) clientName clientIP,clientPort serverIP,serverPort as stated in document
+            outputToServer.println("(Join) " + clientName); // (Join) clientName clientIP,clientPort serverIP,serverPort as stated in document
 
             //wait for the server's acknowledgment for a successful connection
             String serverResponse = inputFromServer.readLine();
@@ -68,7 +68,7 @@ public class Client {
            //end of random equation generator                 
             
             // close the connection
-            outputToServer.println("(End) Andy"); //(End) clientName as stated in document
+            outputToServer.println("(End) " + clientName); //(End) clientName as stated in document
 
             // close the streams and the socket
             inputFromServer.close();
@@ -79,7 +79,6 @@ public class Client {
         } catch (IOException e) {
             System.err.println("I/O error: " + e.getMessage());
         }
-    //}
 	}
 }
 
