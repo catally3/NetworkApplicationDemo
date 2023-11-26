@@ -1,0 +1,6 @@
+all:
+	echo "to build, type make build. to run, type make run"
+build:
+	javac -sourcepath . server/*.java user/Client.java Driver.java
+run:
+	java Driver

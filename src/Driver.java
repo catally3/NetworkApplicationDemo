@@ -1,8 +1,12 @@
+import user.Client;
+import server.Server;
+
 public class Driver {
     public static void main(String[] args) {
     	Server server = new Server(); //start the server
     	
-    	server.Server();
+    	Thread thread0 = new Thread(() -> server.MakeServer());
+    	thread0.start();
     	
     	
         // Create instances of the Client class with different names
@@ -22,8 +26,9 @@ public class Driver {
         thread1.start();
         thread2.start();
 
-        // Wait for both threads to finish
+        // Wait for all threads to finish
         try {
+        	thread0.join();
             thread1.join();
             thread2.join();
         } catch (InterruptedException e) {

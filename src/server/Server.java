@@ -11,7 +11,7 @@ public class Server {
 	ServerSocket serverSocket;
 	ArrayList<Entry> log;
 	
-	public Server() {
+	public void MakeServer() {
 		try {
 		log = new ArrayList<Entry>();
 		serverIP = InetAddress.getLocalHost();
