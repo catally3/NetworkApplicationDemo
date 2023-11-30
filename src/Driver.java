@@ -1,4 +1,5 @@
 import user.Client;
+import server.Entry;
 import server.Server;
 
 public class Driver {
@@ -38,6 +39,11 @@ public class Driver {
         	thread0.join();
             thread1.join();
             thread2.join();
+            
+            System.out.println("Printing Current Log: ");
+			for (Entry ent : server.log) { // prints the log a final time
+				ent.printEntry();
+			}
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
