@@ -25,11 +25,11 @@ public class Driver {
         
         // Create two threads for 2 clients to run simultaneously as required by project
         Thread thread1 = new Thread(() -> client2.startClient("Alice"));
-        Thread.sleep(1000);
         Thread thread2 = new Thread(() -> client3.startClient("Bob"));
 
         // Start the two threads
         thread1.start();
+        Thread.sleep(100);
         thread2.start();
 
         // Wait for all threads to finish
