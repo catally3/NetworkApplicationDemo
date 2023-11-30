@@ -25,8 +25,8 @@ public class ServerThread extends Thread{
 		BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
 		// use String line = reader.readLine() to read line of text from client
 		String line = reader.readLine();
-		//System.out.println(line);
 		
+		// Retrieve client name from the initial join request
 		clientName = line.substring(7);
 		
 		PrintWriter writer = new PrintWriter(client.getOutputStream(), true);
@@ -35,6 +35,7 @@ public class ServerThread extends Thread{
 		
 		entry = new Entry(clientNum, clientName, java.time.LocalTime.now());
 		log.add(entry);
+		
 		line = reader.readLine();
 		while (!line.contains(closeMessage)) {
 			// process current line
