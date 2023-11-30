@@ -2,7 +2,7 @@ import user.Client;
 import server.Server;
 
 public class Driver {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
     	Server server = new Server(); //start the server
     	
     	Thread thread0 = new Thread(() -> server.MakeServer());
@@ -13,6 +13,11 @@ public class Driver {
         Client client1 = new Client();
         Client client2 = new Client();
         Client client3 = new Client();
+        Thread.sleep(100);
+        
+        client1.serverPort = server.serverPort; client1.serverAddress = server.serverIP;
+        client2.serverPort = server.serverPort; client2.serverAddress = server.serverIP;
+        client3.serverPort = server.serverPort; client3.serverAddress = server.serverIP;
 
         
         client1.startClient("Becky"); //runs the first client

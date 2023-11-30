@@ -8,21 +8,21 @@ public class Client {
    
 	//String clientName;
 	InetAddress clientIP;
-	InetAddress serverAddress;
-	int serverPort = 65500;
+	public InetAddress serverAddress;
+	public int serverPort = 0;
 	
 	public void startClient(String clientName){
         try {
             //connect to the server using TCP
-            serverAddress = InetAddress.getByName("server"); // Address of the server
             Socket socket = new Socket(serverAddress, serverPort); // TCP connection
-            
+        	
             //set up input and output streams for the socket
             BufferedReader inputFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter outputToServer = new PrintWriter(socket.getOutputStream(), true);
 
             //provide a name for the client during the initial attachment
             clientIP = InetAddress.getLocalHost();
+            System.out.println("(Join) " + clientName);
             outputToServer.println("(Join) " + clientName); // (Join) clientName clientIP,clientPort serverIP,serverPort as stated in document
 
             //wait for the server's acknowledgment for a successful connection

@@ -9,7 +9,7 @@ public class ServerThread extends Thread{
 	
 	private Socket client;
 	private static String closeMessage = "(End)";
-	private ArrayList<Entry> log;
+	public ArrayList<Entry> log;
 	
 	public ServerThread(Socket client) {
 		this.client = client;
@@ -24,6 +24,8 @@ public class ServerThread extends Thread{
 		BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
 		// use String line = reader.readLine() to read line of text from client
 		String line = reader.readLine();
+		System.out.println(line);
+		
 		clientName = line.substring(7);
 		
 		PrintWriter writer = new PrintWriter(client.getOutputStream(), true);
@@ -35,6 +37,7 @@ public class ServerThread extends Thread{
 		line = reader.readLine();
 		while (!line.contains(closeMessage)) {
 			// process current line
+			System.out.println(line);
 			log.get(clientNum).updateRequestNum();
 			int num1 = Integer.parseInt(line.split(" ", 4)[1]);	// read int from substring
 			String operator = line.split(" ", 4)[2]; // read operator from next substring
