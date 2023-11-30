@@ -20,7 +20,8 @@ public class Server {
 		
 		while (true) {
 			Socket client = serverSocket.accept();
-			new ServerThread(client).start(log);
+			ServerThread serverThread = new ServerThread(client, log);
+			serverThread.start();
 			System.out.println("Printing Current Log: ");
 			if (log.size() > 0)
 				for (Entry ent : log) {

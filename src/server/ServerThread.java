@@ -11,12 +11,13 @@ public class ServerThread extends Thread{
 	private static String closeMessage = "(End)";
 	public ArrayList<Entry> log;
 	
-	public ServerThread(Socket client) {
+	public ServerThread(Socket client, ArrayList<Entry> log) {
 		this.client = client;
+		this.log = log;
 	}
 	
-	public void run(ArrayList<Entry> log) {
-		try {
+	public void run() {
+		try {	
 		Entry entry;
 		String clientName;
 		int clientNum = log.size();
@@ -24,7 +25,7 @@ public class ServerThread extends Thread{
 		BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
 		// use String line = reader.readLine() to read line of text from client
 		String line = reader.readLine();
-		System.out.println(line);
+		//System.out.println(line);
 		
 		clientName = line.substring(7);
 		
@@ -44,13 +45,13 @@ public class ServerThread extends Thread{
 			int num2 = Integer.parseInt(line.split(" ", 4)[3]); // read int from last substring
 			int result = 0; 
 			
-			if (operator.matches("+")) 
+			if (operator.contains("+")) 
 				result = num1 + num2;
-			else if (operator.matches("-")) 
+			else if (operator.contains("-")) 
 				result = num1 - num2;
-			else if (operator.matches("*")) 
+			else if (operator.contains("*")) 
 				result = num1 * num2;
-			else if (operator.matches("/")) {
+			else if (operator.contains("/")) {
 				if (num2 == 0) // preventing divide by zero error
 					result = 0;
 				else 
@@ -70,11 +71,5 @@ public class ServerThread extends Thread{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public void start(ArrayList<Entry> log) {
-		this.log = log;
-		this.start();	
-		return;
 	}
 }
