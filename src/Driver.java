@@ -34,9 +34,8 @@ public class Driver {
         Thread.sleep(100); // Small pause to prevent clients joining simultaneously
         thread2.start();
 
-        // Wait for all threads to finish
+        // Wait for all client threads to finish
         try {
-        	thread0.join();
             thread1.join();
             thread2.join();
             
